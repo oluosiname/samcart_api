@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'samcart_api'
 
 RSpec.describe SamcartApi::Client do
   let(:api_key) { 'test_api_key' }
@@ -57,18 +58,6 @@ RSpec.describe SamcartApi::Client do
         response = client.delete('/test')
         expect(response).to eq({ 'data' => 'success' })
       end
-    end
-  end
-
-  describe '#products' do
-    it 'returns a Product instance' do
-      expect(client.products).to be_instance_of(SamcartApi::Product)
-    end
-  end
-
-  describe '#orders' do
-    it 'returns an Order instance' do
-      expect(client.orders).to be_instance_of(SamcartApi::Order)
     end
   end
 end

@@ -13,9 +13,10 @@ module SamcartApi
   class AuthenticationError < Error; end
   class ApiError < Error; end
 
-  autoload :Client, 'samcart_api/client'
+  autoload :SamcartObject, 'samcart_api/samcart_object'
   autoload :Product, 'samcart_api/product'
   autoload :Order, 'samcart_api/order'
+  autoload :Client, 'samcart_api/client'
   autoload :ApiRequest, 'samcart_api/api_request'
 
   class << self
