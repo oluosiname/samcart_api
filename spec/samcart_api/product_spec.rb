@@ -45,12 +45,12 @@ RSpec.describe SamcartApi::Product do
     }
   end
 
-  before do
-    allow(SamcartApi::Client).to receive(:new).and_return(client)
-    allow(client).to receive(:get).and_return(product_data)
-  end
-
   describe '#find' do
+    before do
+      allow(SamcartApi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:get).and_return(product_data)
+    end
+
     it 'returns a single Product instance' do
       product = described_class.find('1337')
 
@@ -62,5 +62,9 @@ RSpec.describe SamcartApi::Product do
       expect(product.currency).to eq('USD')
       expect(product.price).to eq(1025)
     end
+  end
+
+  describe '#all' do
+    it_behaves_like 'a paginated API resource', resource_path: '/products'
   end
 end

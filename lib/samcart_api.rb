@@ -18,6 +18,7 @@ module SamcartApi
   autoload :Order, 'samcart_api/order'
   autoload :Client, 'samcart_api/client'
   autoload :ApiRequest, 'samcart_api/api_request'
+  autoload :Paginator, 'samcart_api/paginator'
 
   class << self
     def configure

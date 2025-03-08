@@ -6,25 +6,17 @@ module SamcartApi
 
     class << self
       def find(id)
-        new(id).find
+        order = client.get("#{RESOURCE_PATH}/#{id}")
+        SamcartApi::SamcartObject.new(order)
       end
-    end
 
-    def initialize(id)
-      @id = id
-    end
+      def client
+        @client ||= SamcartApi::Client.new
+      end
 
-    def find
-      order = client.get("#{RESOURCE_PATH}/#{id}")
-      SamcartApi::SamcartObject.new(order)
-    end
-
-    private
-
-    attr_reader :id
-
-    def client
-      @client ||= SamcartApi::Client.new
+      def all(limit: 100)
+        SamcartApi::Paginator.new(client, RESOURCE_PATH, limit)
+      end
     end
   end
 end
