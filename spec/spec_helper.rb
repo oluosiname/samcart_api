@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'samcart_api'
+require 'support/shared_examples/paginated_resource'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

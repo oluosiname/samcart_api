@@ -63,12 +63,12 @@ RSpec.describe SamcartApi::Order do
     }
   end
 
-  before do
-    allow(SamcartApi::Client).to receive(:new).and_return(client)
-    allow(client).to receive(:get).and_return(order_data)
-  end
+  describe '.find' do
+    before do
+      allow(SamcartApi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:get).with('/orders/1337').and_return(order_data)
+    end
 
-  describe '#find' do
     it 'returns a single Order instance' do
       order = described_class.find('1337')
 
@@ -94,5 +94,9 @@ RSpec.describe SamcartApi::Order do
         },
       ])
     end
+  end
+
+  describe '.all' do
+    it_behaves_like 'a paginated API resource', resource_path: '/orders'
   end
 end
