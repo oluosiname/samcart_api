@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'samcart_api'
-  spec.version       = '0.1.0'
+  spec.version       = '0.1.2'
   spec.authors       = ['Olumuyiwa Osiname']
   spec.email         = ['osiname@gmail.com']
 
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir.glob('{bin,lib}/**/*')
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport', '~> 6.0'
+  spec.add_dependency 'activesupport', '>= 6.0'
   spec.add_dependency 'faraday', '~> 2.0'
   spec.add_dependency 'json', '~> 2.0'
 
