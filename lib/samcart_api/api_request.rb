@@ -7,13 +7,15 @@ module SamcartApi
       @path = path
       @params = params
       @api_key = api_key
+      @version = SamcartApi.configuration.version
     end
 
     def perform
       response = connection.send(@method) do |req|
-        req.url @path
+        req.url "/#{@version}#{@path}"
         req.params = @params if @params
-        req.headers['Authorization'] = "Bearer #{@api_key}"
+        req.headers['Accept'] = 'application/json'
+        req.headers['sc-api'] = @api_key
         req.headers['Content-Type'] = 'application/json'
       end
 

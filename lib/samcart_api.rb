@@ -30,10 +30,11 @@ module SamcartApi
   end
 
   class Configuration
-    attr_accessor :api_key, :api_url
+    attr_accessor :api_key, :api_url, :version
 
     def initialize
-      @api_url = 'https://api.samcart.com/v1'
+      @api_url = 'https://api.samcart.com'
+      @version = 'v1'
     end
   end
 end
