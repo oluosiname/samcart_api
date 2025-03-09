@@ -11,11 +11,13 @@ module SamcartApi
       end
 
       def client
-        @client ||= SamcartApi::Client.new
+        SamcartApi::Client.new
       end
 
-      def all(limit: 100)
-        SamcartApi::Paginator.new(client, RESOURCE_PATH, limit)
+      def all(filters: {}, limit: 100)
+        params = filters.merge(limit:)
+
+        SamcartApi::Paginator.new(client, RESOURCE_PATH, params)
       end
     end
   end

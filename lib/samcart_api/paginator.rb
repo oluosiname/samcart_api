@@ -2,9 +2,9 @@
 
 module SamcartApi
   class Paginator
-    def initialize(client, path, limit = 100)
+    def initialize(client, path, params)
       @client = client
-      @next_url = "#{path}?limit=#{limit}"
+      @next_url = "#{path}?#{params.to_query}"
       @retry_attempts = 3
     end
 

@@ -34,6 +34,8 @@ end
 
 ### Products
 
+#### Finding a specific product
+
 ```ruby
 # Find a specific product
 product = SamcartApi::Product.find('123')
@@ -43,7 +45,26 @@ product.id          # => "123"
 product.name        # => "Test Product"
 product.price       # => "99.99"
 product.created_at  # => Time object
+
 ```
+
+#### Retrieve All Products with Pagination
+
+By default, `SamcartApi::Product.all` returns a **Paginator object**, allowing you to iterate through paginated results efficiently.
+
+Using `each_page` to **Iterate Over Paginated Results**
+
+```ruby
+SamcartApi::Product.all.each_page do |products|
+  products.each do |product|
+    puts "Product ID: #{product['id']}, Name: #{product['product_name']}"
+  end
+end
+```
+
+#### Filter Products
+
+You can filter products using query parameters such as `status`, `created_at_min`, `created_at_max`, `product_category, and `pricing_type`. See [getProducts](https://developer.samcart.com/#tag/Products/operation/getProducts)
 
 ### Orders
 
