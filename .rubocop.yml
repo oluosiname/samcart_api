@@ -4,6 +4,12 @@ require:
   - rubocop-rspec
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 3.3.0
+  DisplayStyleGuide: true
+  DisplayCopNames: true
+  DisplayCopEnabled: true
+  DisplayTodoComment: true
+
 Style/StringLiterals:
   EnforcedStyle: single_quotes
   SupportedStyles:

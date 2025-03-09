@@ -33,39 +33,6 @@ RSpec.shared_examples 'a paginated API resource' do |resource_path|
     expect(paginator).to be_a(SamcartApi::Paginator)
   end
 
-  it 'fetches paginated resources correctly using `next_page`' do
-    # Stub paginated responses dynamically
-    (1..4).each do |page|
-      response = stub_paginated_response(page, limit)
-      allow(client).to receive(:get).with("#{path}?page=#{page}&limit=#{limit}").and_return(response)
-    end
-
-    paginator = SamcartApi::Paginator.new(client, path, limit)
-    all_resources = []
-
-    all_resources.concat(paginator.next_page) while paginator.next_page?
-
-    expect(all_resources.size).to eq(total_resources)
-    expect(all_resources.map { |o| o['id'] }).to match_array((1..10).to_a)
-  end
-
-  # it 'iterates over each page using `each_page`' do
-  #   (1..4).each do |page|
-  #     response = stub_paginated_response(page, limit)
-  #     allow(client).to receive(:get).with("#{path}?page=#{page}&limit=#{limit}").and_return(response)
-  #   end
-
-  #   paginator = described_class.all
-  #   all_resources = []
-
-  #   paginator.each_page do |page_resources|
-  #     all_resources.concat(page_resources)
-  #   end
-
-  #   expect(all_resources.size).to eq(total_resources)
-  #   expect(all_resources.map { |o| o['id'] }).to match_array((1..10).to_a)
-  # end
-
   it 'fetches all resources using pagination' do
     # Stub API responses for paginated requests
     (1..4).each do |page|

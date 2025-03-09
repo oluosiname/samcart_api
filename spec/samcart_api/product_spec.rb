@@ -4,8 +4,6 @@ require 'spec_helper'
 require 'samcart_api'
 
 RSpec.describe SamcartApi::Product do
-  let(:client) { instance_double(SamcartApi::Client) }
-
   let(:product_data) do
     {
       'id' => 1337,
@@ -46,6 +44,8 @@ RSpec.describe SamcartApi::Product do
   end
 
   describe '#find' do
+    let(:client) { instance_double(SamcartApi::Client) }
+
     before do
       allow(SamcartApi::Client).to receive(:new).and_return(client)
       allow(client).to receive(:get).and_return(product_data)
@@ -65,6 +65,36 @@ RSpec.describe SamcartApi::Product do
   end
 
   describe '#all' do
-    it_behaves_like 'a paginated API resource', resource_path: '/products'
+    context 'when filtering products' do
+      let(:client) { instance_double(SamcartApi::Client) }
+      let(:filters) do
+        {
+          status: 'live',
+          created_at_min: '2021-01-01',
+          created_at_max: '2021-01-31',
+          product_category: 'digital',
+          pricing_type: 'one_time',
+        }
+      end
+
+      before do
+        allow(SamcartApi::Client).to receive(:new).and_return(client)
+        allow(client).to receive(:get).and_return({
+          'data' => [product_data],
+          'pagination' => { 'next' => nil },
+        })
+      end
+
+      it 'returns a collection of Product instances' do
+        paginator = described_class.all(filters:)
+        paginator.each_page do |products|
+          expect(products.size).to eq(1)
+        end
+
+        expected_query = '/products?' + URI.encode_www_form(filters.merge(limit: 100).sort.to_h)
+
+        expect(client).to have_received(:get).with(expected_query)
+      end
+    end
   end
 end

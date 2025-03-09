@@ -63,9 +63,12 @@ RSpec.describe SamcartApi::Order do
     }
   end
 
+  before do
+    allow(SamcartApi::Client).to receive(:new).and_return(client)
+  end
+
   describe '.find' do
     before do
-      allow(SamcartApi::Client).to receive(:new).and_return(client)
       allow(client).to receive(:get).with('/orders/1337').and_return(order_data)
     end
 
@@ -97,6 +100,38 @@ RSpec.describe SamcartApi::Order do
   end
 
   describe '.all' do
-    it_behaves_like 'a paginated API resource', resource_path: '/orders'
+    context 'when no filtering' do
+      it_behaves_like 'a paginated API resource', resource_path: '/orders'
+    end
+
+    context 'when filtering orders' do
+      let(:filters) do
+        {
+          test_mode: true,
+          created_at_max: '2021-03-08',
+          created_at_min: '2021-03-01',
+        }
+      end
+
+      before do
+        allow(client).to receive(:get).and_return({
+          'data' => [order_data],
+          'pagination' => {
+            'next' => nil,
+          },
+        })
+      end
+
+      it 'returns a Paginator instance with the correct path and params' do
+        paginated_orders = described_class.all(filters:)
+        paginated_orders.each_page do |orders|
+          expect(orders.size).to eq(1)
+        end
+
+        expected_query = '/orders?' + URI.encode_www_form(filters.merge(limit: 100).sort.to_h)
+
+        expect(client).to have_received(:get).with(expected_query)
+      end
+    end
   end
 end

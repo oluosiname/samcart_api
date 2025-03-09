@@ -35,7 +35,7 @@ RSpec.describe SamcartApi::Paginator do
       allow(client).to receive(:get).with("/resources?page=#{page}&limit=#{limit}").and_return(response)
     end
 
-    paginator = described_class.new(client, path, limit)
+    paginator = described_class.new(client, path, { limit: })
     all_resources = []
 
     all_resources.concat(paginator.next_page) while paginator.next_page?
@@ -50,7 +50,7 @@ RSpec.describe SamcartApi::Paginator do
       allow(client).to receive(:get).with("/resources?page=#{page}&limit=#{limit}").and_return(response)
     end
 
-    paginator = described_class.new(client, path, limit)
+    paginator = described_class.new(client, path, { limit: })
     all_resources = []
 
     paginator.each_page do |page_resources|
