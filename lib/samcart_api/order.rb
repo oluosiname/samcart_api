@@ -18,6 +18,10 @@ module SamcartAPI
         params = filters.merge(limit:)
         SamcartAPI::Paginator.new(client, RESOURCE_PATH, params)
       end
+
+      def charges(order_id)
+        client.get("#{RESOURCE_PATH}/#{order_id}/charges")
+      end
     end
   end
 end

@@ -79,6 +79,16 @@ order.id          # => "123"
 order.status      # => "completed"
 order.total       # => "99.99"
 order.created_at  # => Time object
+
+# Get charges for an order (returns raw hash data)
+charges = SamcartAPI::Order.charges('123')
+charges.first['id']                    # => 1337
+charges.first['customer_id']           # => 1234
+charges.first['processor_name']        # => "Stripe"
+charges.first['charge_refund_status']  # => "partially_refunded"
+charges.first['total']                 # => 10025
+charges.first['currency']              # => "USD"
+charges.first['card_used']            # => "4242"
 ```
 
 #### Retrieve All Orders with Pagination

@@ -134,4 +134,49 @@ RSpec.describe SamcartAPI::Order do
       end
     end
   end
+
+  describe '.charges' do
+    let(:order_id) { '123' }
+    let(:charges_data) do
+      [
+        {
+          'id' => 1337,
+          'customer_id' => 1234,
+          'affiliate_id' => 1001,
+          'order_id' => 1001,
+          'subscription_rebill_id' => 1001,
+          'test_mode' => true,
+          'processor_name' => 'Stripe',
+          'processor_transaction_id' => '01234ABCD',
+          'currency' => 'USD',
+          'card_used' => '4242',
+          'charge_refund_status' => 'partially_refunded',
+          'order_date' => '2021-03-08 00:18:35',
+          'created_at' => '2021-03-08 00:18:35',
+          'total' => 10025,
+        },
+      ]
+    end
+
+    before do
+      allow(client)
+        .to receive(:get)
+        .with("#{described_class::RESOURCE_PATH}/#{order_id}/charges")
+        .and_return(charges_data)
+    end
+
+    it 'returns an array of charge hashes' do
+      charges = described_class.charges(order_id)
+      expect(charges).to be_an(Array)
+      expect(charges.first).to be_a(Hash)
+      expect(charges.first['id']).to eq(1337)
+      expect(charges.first['customer_id']).to eq(1234)
+      expect(charges.first['processor_name']).to eq('Stripe')
+      expect(charges.first['total']).to eq(10025)
+      expect(charges.first['currency']).to eq('USD')
+      expect(charges.first['card_used']).to eq('4242')
+
+      expect(client).to have_received(:get).with("#{described_class::RESOURCE_PATH}/#{order_id}/charges")
+    end
+  end
 end
