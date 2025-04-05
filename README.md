@@ -142,3 +142,17 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 ## License
 
 The gem is available as open source under the terms of the MIT License.
+
+## Deprecation Notice
+
+The `SamcartAPI::SamcartObject` class is deprecated and will be removed in the next major version. Please use hash access for API responses instead:
+
+```ruby
+# Old way (deprecated)
+product = SamcartAPI::Product.find('123')
+product.name  # => "Test Product"
+
+# New way
+product = SamcartAPI::Product.find('123')
+product['name']  # => "Test Product"
+```

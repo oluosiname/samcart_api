@@ -29,6 +29,22 @@ RSpec.describe SamcartAPI::SamcartObject do
     end
   end
 
+  describe 'attribute access' do
+    it 'does not show deprecation warning when using hash access' do
+      expect do
+        object['name']
+      end.not_to output.to_stderr
+    end
+
+    it 'shows deprecation warning when using dot notation' do
+      expect do
+        object.name
+      end.to output(
+        "[DEPRECATION] Dot notation (.) is deprecated and will be removed in the next major version. Use hash access ['name'] instead.\n",
+      ).to_stderr
+    end
+  end
+
   describe 'method_missing' do
     it 'returns attribute value when method name matches attribute key' do
       expect(object.id).to eq('123')

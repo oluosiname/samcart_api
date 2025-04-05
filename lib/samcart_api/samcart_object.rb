@@ -12,6 +12,9 @@ module SamcartAPI
 
     def method_missing(method_name, *args)
       if @attributes.key?(method_name.to_s)
+
+        warn '[DEPRECATION] Dot notation (.) is deprecated and ' \
+          "will be removed in the next major version. Use hash access ['#{method_name}'] instead."
         @attributes[method_name.to_s]
       else
         super
