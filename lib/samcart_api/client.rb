@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module SamcartApi
+module SamcartAPI
   # Client for interacting with the SamCart API
   class Client
     def initialize(api_key = nil)
-      @api_key = api_key || SamcartApi.configuration.api_key
+      @api_key = api_key || SamcartAPI.configuration.api_key
       raise ConfigurationError, 'API key is required' unless @api_key
     end
 

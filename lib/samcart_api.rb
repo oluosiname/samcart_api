@@ -5,7 +5,7 @@ require 'json'
 require 'active_support'
 require 'active_support/core_ext'
 
-module SamcartApi
+module SamcartAPI
   VERSION = '0.1.0'
 
   class Error < StandardError; end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SamcartApi
+module SamcartAPI
   class ApiRequest
     RETRY_ATTEMPTS = 3
 
@@ -9,7 +9,7 @@ module SamcartApi
       @path = path
       @params = params
       @api_key = api_key
-      @version = SamcartApi.configuration.version
+      @version = SamcartAPI.configuration.version
     end
 
     def perform
@@ -56,7 +56,7 @@ module SamcartApi
     end
 
     def connection
-      @connection ||= Faraday.new(url: SamcartApi.configuration.api_url) do |conn|
+      @connection ||= Faraday.new(url: SamcartAPI.configuration.api_url) do |conn|
         conn.response :json
         conn.adapter Faraday.default_adapter
       end

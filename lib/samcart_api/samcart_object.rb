@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SamcartApi
+module SamcartAPI
   class SamcartObject
     def initialize(attributes = {})
       @attributes = attributes

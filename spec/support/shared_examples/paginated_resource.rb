@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples 'a paginated API resource' do |resource_path|
-  let(:client) { instance_double(SamcartApi::Client) }
+  let(:client) { instance_double(SamcartAPI::Client) }
   let(:limit) { 3 } # Number of items per page
   let(:total_resources) { 10 }
   let(:path) { resource_path }
@@ -30,7 +30,7 @@ RSpec.shared_examples 'a paginated API resource' do |resource_path|
   it 'returns a Paginator instance' do
     paginator = described_class.all
 
-    expect(paginator).to be_a(SamcartApi::Paginator)
+    expect(paginator).to be_a(SamcartAPI::Paginator)
   end
 
   it 'fetches all resources using pagination' do

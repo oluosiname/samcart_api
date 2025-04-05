@@ -27,7 +27,7 @@ $ gem install samcart_api
 ### Configuration
 
 ```ruby
-SamcartApi.configure do |config|
+SamcartAPI.configure do |config|
   config.api_key = 'your_api_key'
 end
 ```
@@ -38,7 +38,7 @@ end
 
 ```ruby
 # Find a specific product
-product = SamcartApi::Product.find('123')
+product = SamcartAPI::Product.find('123')
 
 # Access product attributes
 product.id          # => "123"
@@ -50,12 +50,12 @@ product.created_at  # => Time object
 
 #### Retrieve All Products with Pagination
 
-By default, `SamcartApi::Product.all` returns a **Paginator object**, allowing you to iterate through paginated results efficiently.
+By default, `SamcartAPI::Product.all` returns a **Paginator object**, allowing you to iterate through paginated results efficiently.
 
 Using `each_page` to **Iterate Over Paginated Results**
 
 ```ruby
-SamcartApi::Product.all.each_page do |products|
+SamcartAPI::Product.all.each_page do |products|
   products.each do |product|
     puts "Product ID: #{product['id']}, Name: #{product['product_name']}"
   end
@@ -72,7 +72,7 @@ You can filter products using query parameters such as `status`, `created_at_min
 
 ```ruby
 # Find a specific order
-order = SamcartApi::Order.find('123')
+order = SamcartAPI::Order.find('123')
 
 # Access order attributes
 order.id          # => "123"
@@ -83,12 +83,12 @@ order.created_at  # => Time object
 
 #### Retrieve All Orders with Pagination
 
-By default, `SamcartApi::Order.all` returns a **Paginator object**, allowing you to iterate through paginated results efficiently.
+By default, `SamcartAPI::Order.all` returns a **Paginator object**, allowing you to iterate through paginated results efficiently.
 
 Using `each_page` to **Iterate Over Paginated Results**
 
 ```ruby
-SamcartApi::Order.all.each_page do |orders|
+SamcartAPI::Order.all.each_page do |orders|
   orders.each do |order|
     puts "Order ID: #{order['id']}"
   end
@@ -100,7 +100,7 @@ end
 If you need to make custom API calls, you can use the client directly:
 
 ```ruby
-client = SamcartApi::Client.new('your_api_key')
+client = SamcartAPI::Client.new('your_api_key')
 
 # GET request
 response = client.get('/products')

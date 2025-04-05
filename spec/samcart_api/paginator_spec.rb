@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe SamcartApi::Paginator do
-  let(:client) { instance_double(SamcartApi::Client) }
+RSpec.describe SamcartAPI::Paginator do
+  let(:client) { instance_double(SamcartAPI::Client) }
   let(:limit) { 3 } # Number of items per page
   let(:total_resources) { 10 }
   let(:path) { '/resource' }

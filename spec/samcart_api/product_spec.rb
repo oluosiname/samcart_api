@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'samcart_api'
 
-RSpec.describe SamcartApi::Product do
+RSpec.describe SamcartAPI::Product do
   let(:product_data) do
     {
       'id' => 1337,
@@ -44,10 +44,10 @@ RSpec.describe SamcartApi::Product do
   end
 
   describe '#find' do
-    let(:client) { instance_double(SamcartApi::Client) }
+    let(:client) { instance_double(SamcartAPI::Client) }
 
     before do
-      allow(SamcartApi::Client).to receive(:new).and_return(client)
+      allow(SamcartAPI::Client).to receive(:new).and_return(client)
       allow(client).to receive(:get).and_return(product_data)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe SamcartApi::Product do
 
   describe '#all' do
     context 'when filtering products' do
-      let(:client) { instance_double(SamcartApi::Client) }
+      let(:client) { instance_double(SamcartAPI::Client) }
       let(:filters) do
         {
           status: 'live',
@@ -78,7 +78,7 @@ RSpec.describe SamcartApi::Product do
       end
 
       before do
-        allow(SamcartApi::Client).to receive(:new).and_return(client)
+        allow(SamcartAPI::Client).to receive(:new).and_return(client)
         allow(client).to receive(:get).and_return({
           'data' => [product_data],
           'pagination' => { 'next' => nil },

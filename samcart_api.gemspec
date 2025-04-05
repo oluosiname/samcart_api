@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'lib/samcart_api/version'
+
 Gem::Specification.new do |spec|
   spec.name          = 'samcart_api'
-  spec.version       = '0.2.0'
+  spec.version       = SamcartAPI::VERSION
   spec.authors       = ['Olumuyiwa Osiname']
   spec.email         = ['osiname@gmail.com']
 
-  spec.summary       = 'Ruby gem for interacting with the SamCart API'
-  spec.description   = 'A Ruby gem that provides a simple interface for interacting with the SamCart API, focusing on products and orders.'
+  spec.summary       = 'Ruby wrapper for the SamCart API'
+  spec.description   = 'A Ruby gem that provides a simple interface for interacting ' \
+    'with the SamCart API, focusing on products and orders.'
   spec.homepage      = 'https://github.com/oluosiname/samcart_api'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 3.3.0'

@@ -3,8 +3,8 @@
 require 'spec_helper'
 require 'samcart_api'
 
-RSpec.describe SamcartApi::Order do
-  let(:client) { instance_double(SamcartApi::Client) }
+RSpec.describe SamcartAPI::Order do
+  let(:client) { instance_double(SamcartAPI::Client) }
 
   let(:order_data) do
     {
@@ -64,7 +64,7 @@ RSpec.describe SamcartApi::Order do
   end
 
   before do
-    allow(SamcartApi::Client).to receive(:new).and_return(client)
+    allow(SamcartAPI::Client).to receive(:new).and_return(client)
   end
 
   describe '.find' do

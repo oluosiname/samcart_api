@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SamcartApi::ApiRequest do
+RSpec.describe SamcartAPI::ApiRequest do
   let(:method) { :get }
   let(:path) { '/test' }
   let(:params) { { foo: 'bar' } }
@@ -10,7 +10,7 @@ RSpec.describe SamcartApi::ApiRequest do
   let(:request) { described_class.new(method, path, params, api_key) }
 
   before do
-    SamcartApi.configure do |config|
+    SamcartAPI.configure do |config|
       config.api_url = 'https://api.samcart.com/v1'
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe SamcartApi::ApiRequest do
         end
 
         it 'raises AuthenticationError' do
-          expect { request.perform }.to raise_error(SamcartApi::AuthenticationError)
+          expect { request.perform }.to raise_error(SamcartAPI::AuthenticationError)
         end
       end
 
@@ -52,7 +52,7 @@ RSpec.describe SamcartApi::ApiRequest do
         end
 
         it 'raises AuthenticationError' do
-          expect { request.perform }.to raise_error(SamcartApi::AuthenticationError)
+          expect { request.perform }.to raise_error(SamcartAPI::AuthenticationError)
         end
       end
 
@@ -62,7 +62,7 @@ RSpec.describe SamcartApi::ApiRequest do
         end
 
         it 'raises ApiError' do
-          expect { request.perform }.to raise_error(SamcartApi::ApiError)
+          expect { request.perform }.to raise_error(SamcartAPI::ApiError)
         end
       end
 
@@ -72,7 +72,7 @@ RSpec.describe SamcartApi::ApiRequest do
         end
 
         it 'raises ApiError' do
-          expect { request.perform }.to raise_error(SamcartApi::ApiError)
+          expect { request.perform }.to raise_error(SamcartAPI::ApiError)
         end
       end
     end
