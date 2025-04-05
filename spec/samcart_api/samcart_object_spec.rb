@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'samcart_api'
 
-RSpec.describe SamcartApi::SamcartObject do
+RSpec.describe SamcartAPI::SamcartObject do
   subject(:object) { described_class.new(attributes) }
 
   let(:attributes) do

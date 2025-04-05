@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SamcartApi
+module SamcartAPI
   class Paginator
     def initialize(client, path, params)
       @client = client

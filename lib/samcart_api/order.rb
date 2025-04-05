@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-module SamcartApi
+module SamcartAPI
   class Order
     RESOURCE_PATH = '/orders'
 
     class << self
       def find(id)
         order = client.get("#{RESOURCE_PATH}/#{id}")
-        SamcartApi::SamcartObject.new(order)
+        SamcartAPI::SamcartObject.new(order)
       end
 
       def client
-        SamcartApi::Client.new
+        SamcartAPI::Client.new
       end
 
       def all(filters: {}, limit: 100)
         params = filters.merge(limit:)
-        SamcartApi::Paginator.new(client, RESOURCE_PATH, params)
+        SamcartAPI::Paginator.new(client, RESOURCE_PATH, params)
       end
     end
   end

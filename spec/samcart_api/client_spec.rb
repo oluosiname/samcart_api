@@ -3,12 +3,12 @@
 require 'spec_helper'
 require 'samcart_api'
 
-RSpec.describe SamcartApi::Client do
+RSpec.describe SamcartAPI::Client do
   let(:api_key) { 'test_api_key' }
   let(:client) { described_class.new(api_key) }
 
   before do
-    SamcartApi.configure do |config|
+    SamcartAPI.configure do |config|
       config.api_key = api_key
       config.api_url = 'https://api.samcart.com/v1'
     end
@@ -16,8 +16,8 @@ RSpec.describe SamcartApi::Client do
 
   describe '#initialize' do
     it 'raises error when no API key is provided' do
-      SamcartApi.configuration.api_key = nil
-      expect { described_class.new }.to raise_error(SamcartApi::ConfigurationError)
+      SamcartAPI.configuration.api_key = nil
+      expect { described_class.new }.to raise_error(SamcartAPI::ConfigurationError)
     end
 
     it 'uses provided API key' do
@@ -27,8 +27,8 @@ RSpec.describe SamcartApi::Client do
 
   describe 'HTTP methods' do
     before do
-      allow(SamcartApi::ApiRequest).to receive(:new).and_return(
-        instance_double(SamcartApi::ApiRequest, perform: { 'data' => 'success' }),
+      allow(SamcartAPI::ApiRequest).to receive(:new).and_return(
+        instance_double(SamcartAPI::ApiRequest, perform: { 'data' => 'success' }),
       )
     end
 
