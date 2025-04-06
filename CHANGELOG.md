@@ -52,3 +52,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Cancellation schedule
     - Payment processing details
     - Billing dates
+- Customer model with find endpoint
+
+  ```ruby
+  # Fetch a customer by ID
+  customer = SamcartAPI::Customer.find(1337)
+
+  # Access customer data
+  customer['first_name']    # => "John"
+  customer['email']         # => "jdoe@gmail.com"
+  customer['lifetime_value'] # => 95025
+  customer['addresses'].first['street'] # => "221B Baker Street"
+  ```
+
+  - Returns customer details including:
+    - Basic information (name, email, phone)
+    - Customer tags
+    - Lifetime value
+    - Shipping addresses
+    - Creation and update timestamps
