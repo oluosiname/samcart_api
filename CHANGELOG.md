@@ -39,3 +39,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 - Basic Product and Order endpoints
 - Authentication with API key
+
+## [Unreleased]
+
+### Added
+
+- Order subscriptions endpoint (`/orders/{id}/subscriptions`)
+  - Returns subscription details including:
+    - Subscription status and type
+    - Initial and recurring pricing
+    - Coupon information
+    - Cancellation schedule
+    - Payment processing details
+    - Billing dates

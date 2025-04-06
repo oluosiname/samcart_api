@@ -22,6 +22,14 @@ module SamcartAPI
       def charges(order_id)
         client.get("#{RESOURCE_PATH}/#{order_id}/charges")
       end
+
+      def customer(order_id)
+        client.get("#{RESOURCE_PATH}/#{order_id}/customer")
+      end
+
+      def subscriptions(order_id)
+        client.get("#{RESOURCE_PATH}/#{order_id}/subscriptions")
+      end
     end
   end
 end

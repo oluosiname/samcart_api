@@ -179,4 +179,127 @@ RSpec.describe SamcartAPI::Order do
       expect(client).to have_received(:get).with("#{described_class::RESOURCE_PATH}/#{order_id}/charges")
     end
   end
+
+  describe '.customer' do
+    let(:order_id) { '123' }
+    let(:customer_data) do
+      {
+        'id' => 1337,
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+        'email' => 'jdoe@gmail.com',
+        'phone' => '5555555555',
+        'customer_tags' => [
+          {
+            'name' => 'new',
+          },
+        ],
+        'lifetime_value' => 95025,
+        'updated_at' => '2020-03-04 00:18:35',
+        'created_at' => '2020-03-04 00:18:35',
+        'addresses' => [
+          {
+            'type' => 'shipping',
+            'street' => '221B Baker Street',
+            'postal_code' => 1234,
+            'city' => 'Austin',
+            'state' => 'TX',
+            'region' => 'Quebec',
+            'country' => 'United States',
+          },
+        ],
+      }
+    end
+
+    it 'returns customer data for the order' do
+      allow(client).to receive(:get).and_return(customer_data)
+      customer = described_class.customer(order_id)
+      expect(customer).to be_a(Hash)
+      expect(customer['id']).to eq(1337)
+      expect(customer['first_name']).to eq('John')
+      expect(customer['last_name']).to eq('Doe')
+      expect(customer['email']).to eq('jdoe@gmail.com')
+      expect(customer['customer_tags'].first['name']).to eq('new')
+      expect(customer['addresses'].first['street']).to eq('221B Baker Street')
+
+      expect(client).to have_received(:get)
+        .with("#{described_class::RESOURCE_PATH}/#{order_id}/customer")
+    end
+  end
+
+  describe '.subscriptions' do
+    let(:order_id) { '123' }
+    let(:subscriptions_data) do
+      [
+        {
+          'id' => 1337,
+          'customer_id' => 1234,
+          'affiliate_id' => 1001,
+          'order_id' => 1001,
+          'product_id' => 1001,
+          'sku' => 'sku123',
+          'status' => 'active',
+          'type' => 'recurring_subscription',
+          'product_name' => 'Cool Product',
+          'internal_product_name' => 'Cool Product',
+          'initial_price' => {
+            'subtotal' => 10000,
+            'taxes' => 500,
+            'shipping' => 300,
+            'total' => 9800,
+          },
+          'recurring_price' => {
+            'subtotal' => 10000,
+            'taxes' => 500,
+            'shipping' => 300,
+            'total' => 10800,
+          },
+          'coupon' => {
+            'id' => '1234',
+            'charge_instance' => 'one_time',
+            'code' => 'summersale',
+            'type' => 'flat_rate',
+            'discount_amount' => nil,
+            'discount_percentage' => 10,
+          },
+          'cancel_schedule' => {
+            'status' => 'scheduled',
+            'cancel_date' => '2021-03-08 00:18:35',
+          },
+          'processor_name' => 'Stripe',
+          'test_mode' => true,
+          'card_used' => '4242',
+          'created_at' => '2021-03-08 00:18:35',
+          'start_date' => '2021-03-08 00:18:35',
+          'end_date' => '2021-03-08 00:18:35',
+          'next_rebilling_date' => '2021-04-08 00:18:35',
+          'total_failed_charges' => 1,
+        },
+      ]
+    end
+
+    before do
+      allow(client).to receive(:get).and_return(subscriptions_data)
+    end
+
+    it 'returns subscriptions data for the order' do
+      subscriptions = described_class.subscriptions(order_id)
+
+      expect(client).to have_received(:get)
+        .with("#{described_class::RESOURCE_PATH}/#{order_id}/subscriptions")
+
+      expect(subscriptions).to be_an(Array)
+      expect(subscriptions.first).to be_a(Hash)
+
+      subscription = subscriptions.first
+      expect(subscription['id']).to eq(1337)
+      expect(subscription['status']).to eq('active')
+      expect(subscription['type']).to eq('recurring_subscription')
+      expect(subscription['product_name']).to eq('Cool Product')
+      expect(subscription['initial_price']['total']).to eq(9800)
+      expect(subscription['recurring_price']['total']).to eq(10800)
+      expect(subscription['coupon']['code']).to eq('summersale')
+      expect(subscription['cancel_schedule']['status']).to eq('scheduled')
+    end
+  end
 end
